@@ -13,7 +13,7 @@ plugins {
     alias(libs.plugins.kover)
     alias(libs.plugins.download)
     id("maven-publish")
-//    signing
+    signing
 }
 
 kotlin {
@@ -51,7 +51,7 @@ kotlin {
     // Mac / iOS
     listOf(
         iosX64(),
-//        iosArm64(),
+        iosArm64(),
         iosSimulatorArm64(),
 //        macosX64(),
 //        macosArm64(),
@@ -244,33 +244,33 @@ publishing {
     }
 }
 
-//signing {
-//    setRequired {
-//        findProperty("signing.keyId") != null
-//    }
-//
-//    publishing.publications.all {
-//        sign(this)
-//    }
-//}
+signing {
+    setRequired {
+        findProperty("signing.keyId") != null
+    }
+
+    publishing.publications.all {
+        sign(this)
+    }
+}
 
 // TODO: remove after following issues are fixed
 // https://github.com/gradle/gradle/issues/26091
 // https://youtrack.jetbrains.com/issue/KT-46466
-//tasks {
-//    withType<PublishToMavenRepository> {
-//        dependsOn(withType<Sign>())
-//    }
-//
-//    named("compileTestKotlinIosArm64") {
-//        dependsOn(named("signIosArm64Publication"))
-//    }
-//    named("compileTestKotlinIosSimulatorArm64") {
-//        dependsOn(named("signIosSimulatorArm64Publication"))
-//    }
-//    named("compileTestKotlinIosX64") {
-//        dependsOn(named("signIosX64Publication"))
-//    }
+tasks {
+    withType<PublishToMavenRepository> {
+        dependsOn(withType<Sign>())
+    }
+
+    named("compileTestKotlinIosArm64") {
+        dependsOn(named("signIosArm64Publication"))
+    }
+    named("compileTestKotlinIosSimulatorArm64") {
+        dependsOn(named("signIosSimulatorArm64Publication"))
+    }
+    named("compileTestKotlinIosX64") {
+        dependsOn(named("signIosX64Publication"))
+    }
 //    named("compileTestKotlinLinuxX64") {
 //        dependsOn(named("signLinuxX64Publication"))
 //    }
@@ -280,4 +280,4 @@ publishing {
 //    named("compileTestKotlinMacosX64") {
 //        dependsOn(named("signMacosX64Publication"))
 //    }
-//}
+}
