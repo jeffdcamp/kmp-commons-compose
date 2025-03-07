@@ -44,7 +44,8 @@ fun DayNightTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
-    maxLines: Int = Int.MAX_VALUE,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = if (isSystemInDarkTheme()) TextFieldDefaults.shape else OutlinedTextFieldDefaults.shape,
     colors: TextFieldColors = if (isSystemInDarkTheme()) TextFieldDefaults.colors() else OutlinedTextFieldDefaults.colors()
@@ -75,6 +76,7 @@ fun DayNightTextField(
         keyboardOptions = keyboardOptions,
         keyboardActions = keyboardActions,
         maxLines = maxLines,
+        minLines = minLines,
         interactionSource = interactionSource,
         shape = shape,
         colors = colors
@@ -99,7 +101,8 @@ fun DayNightTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
     singleLine: Boolean = false,
-    maxLines: Int = Int.MAX_VALUE,
+    maxLines: Int = if (singleLine) 1 else Int.MAX_VALUE,
+    minLines: Int = 1,
     interactionSource: MutableInteractionSource = remember { MutableInteractionSource() },
     shape: Shape = if (isSystemInDarkTheme()) TextFieldDefaults.shape else OutlinedTextFieldDefaults.shape,
     colors: TextFieldColors = if (isSystemInDarkTheme()) TextFieldDefaults.colors() else OutlinedTextFieldDefaults.colors()
@@ -123,6 +126,7 @@ fun DayNightTextField(
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             maxLines = maxLines,
+            minLines = minLines,
             interactionSource = interactionSource,
             shape = shape,
             colors = colors
@@ -146,10 +150,22 @@ fun DayNightTextField(
             keyboardOptions = keyboardOptions,
             keyboardActions = keyboardActions,
             maxLines = maxLines,
+            minLines = minLines,
             interactionSource = interactionSource,
             shape = shape,
             colors = colors
         )
+    }
+}
+
+@Composable
+fun SupportingText(
+    isError: Boolean = false,
+    helperText: String? = null,
+    errorHelperText: String? = null,
+) {
+    if (helperText != null || (isError && errorHelperText != null)) {
+        Text(text = (if (isError) errorHelperText else helperText).orEmpty())
     }
 }
 
@@ -165,11 +181,6 @@ private fun Preview() {
                 label = { Text(text = "Password") },
                 keyboardOptions = KeyboardOptions(imeAction = ImeAction.Next),
                 keyboardActions = KeyboardActions(onDone = {  }),
-                modifier = Modifier
-//                    .onPreviewKeyEvent { formKeyEventHandler(it, focusManager) }
-//                    .fillMaxWidth()
-//                    .padding(paddingValues)
-                    .testTag("passwordConfirm")
             )
         }
     }
