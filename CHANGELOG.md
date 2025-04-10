@@ -7,6 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [0.1.0] - 2025-04-10
+
+### Changed
+- Kotlin 2.1.20
+- JetBrains compose plugin 1.8.0-beta02
+- JetBrains navigation 2.9.0-alpha15
+- Improved support for long text in MessageDialog
+- Improved support for multiple lines in DayNightTextField and InputDialog
+- Improved Navigation Action to support direct calls to the NavController
+- Other version updates 
+
 ## [0.0.1] - 2024-12-18
 
 ### Added
