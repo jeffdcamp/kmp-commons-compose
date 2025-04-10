@@ -58,7 +58,7 @@ fun AppBarIcon(menuItem: AppBarMenuItem.Icon) {
 @Composable
 fun AppBarIcon(imageVector: ImageVector, contentDescription: String, action: () -> Unit) {
     TooltipBox(
-        positionProvider = TooltipDefaults.rememberPlainTooltipPositionProvider(),
+        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(),
         tooltip = {
             PlainTooltip {
                 Text(contentDescription)
