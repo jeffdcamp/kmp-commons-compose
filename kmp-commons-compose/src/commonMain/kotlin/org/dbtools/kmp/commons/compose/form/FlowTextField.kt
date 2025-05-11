@@ -4,11 +4,11 @@ import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.key.onPreviewKeyEvent
 import androidx.compose.ui.platform.LocalFocusManager
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.dbtools.kmp.commons.compose.component.DayNightPasswordTextField
@@ -25,8 +25,8 @@ fun FlowTextField(
     keyboardOptions: KeyboardOptions = KeyboardOptions.Default,
     keyboardActions: KeyboardActions = KeyboardActions.Default,
 ) {
-    val text by textFlow.collectAsStateWithLifecycle()
-    val errorText by errorTextFlow.collectAsStateWithLifecycle()
+    val text by textFlow.collectAsState()
+    val errorText by errorTextFlow.collectAsState()
     val focusManager = LocalFocusManager.current
 
     DayNightTextField(
@@ -51,8 +51,8 @@ fun PasswordFlowTextField(
     modifier: Modifier = Modifier,
     errorTextFlow: StateFlow<String?> = MutableStateFlow(null),
 ) {
-    val text by textFlow.collectAsStateWithLifecycle()
-    val errorText by errorTextFlow.collectAsStateWithLifecycle()
+    val text by textFlow.collectAsState()
+    val errorText by errorTextFlow.collectAsState()
     val focusManager = LocalFocusManager.current
 
     DayNightPasswordTextField(

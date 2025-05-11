@@ -2,8 +2,8 @@ package org.dbtools.kmp.commons.compose.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavOptions
@@ -160,7 +160,7 @@ fun <T : Enum<T>> HandleNavBarNavigation(
     navController: NavController?
 ) {
     navController ?: return
-    val navigator by viewModelNavigationBar.navigatorFlow.collectAsStateWithLifecycle()
+    val navigator by viewModelNavigationBar.navigatorFlow.collectAsState()
 
     LaunchedEffect(navigator) {
         navigator?.navigate(navController, viewModelNavigationBar)

@@ -1,9 +1,9 @@
 package org.dbtools.kmp.commons.compose.form
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.datetime.LocalTime
@@ -17,9 +17,9 @@ fun TimeClickableTextField(
     modifier: Modifier = Modifier,
     errorTextFlow: StateFlow<String?> = MutableStateFlow<String?>(null)
 ) {
-    val time by localTimeFlow.collectAsStateWithLifecycle()
+    val time by localTimeFlow.collectAsState()
     val text = localTimeToString(time)
-    val errorText by errorTextFlow.collectAsStateWithLifecycle()
+    val errorText by errorTextFlow.collectAsState()
 
     ClickableTextField(
         label = label,

@@ -2,7 +2,7 @@ package org.dbtools.kmp.commons.compose.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import androidx.compose.runtime.collectAsState
 import androidx.navigation.NavController
 import androidx.navigation.NavOptions
 import androidx.navigation.NavOptionsBuilder
@@ -81,7 +81,7 @@ fun HandleNavigation(
     navController: NavController?
 ) {
     navController ?: return
-    val navigationActionState = viewModelNavigation.navigationActionFlow.collectAsStateWithLifecycle()
+    val navigationActionState = viewModelNavigation.navigationActionFlow.collectAsState()
     val navigationAction = navigationActionState.value
 
     LaunchedEffect(navigationAction) {

@@ -3,8 +3,8 @@
 package org.dbtools.kmp.commons.compose.dialog
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 
@@ -19,7 +19,7 @@ fun <T : DialogUiState<*>> HandleDialogUiState(
     dialogUiStateFlow: StateFlow<T?>,
     dialog: @Composable (T) -> Unit = { dialogUiState -> LibraryDialogs(dialogUiState) }
 ) {
-    val dialogUiState by dialogUiStateFlow.collectAsStateWithLifecycle()
+    val dialogUiState by dialogUiStateFlow.collectAsState()
 
     dialogUiState?.let {
         dialog(it)

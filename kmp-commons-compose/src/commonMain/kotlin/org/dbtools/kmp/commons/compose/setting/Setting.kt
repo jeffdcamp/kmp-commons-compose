@@ -18,6 +18,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -26,7 +27,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.dbtools.kmp.commons.compose.LibraryTheme
@@ -82,7 +82,7 @@ object Setting {
         icon: @Composable (() -> Unit)? = null,
         onClickBody: ((Boolean) -> Unit)? = null
     ) {
-        val currentValueChecked by currentCheckedValueFlow.collectAsStateWithLifecycle()
+        val currentValueChecked by currentCheckedValueFlow.collectAsState()
 
         ListItem(
             modifier = modifier
@@ -134,7 +134,7 @@ object Setting {
         icon: @Composable (() -> Unit)? = null,
         onClickBody: (() -> Unit)? = null
     ) {
-        val currentValue by currentValueFlow.collectAsStateWithLifecycle()
+        val currentValue by currentValueFlow.collectAsState()
 
         Clickable(
             text = text,
@@ -153,7 +153,7 @@ object Setting {
         icon: @Composable (() -> Unit)? = null,
         onValueChangeFinished: ((Float) -> Unit),
     ) {
-        val value by valueFlow.collectAsStateWithLifecycle()
+        val value by valueFlow.collectAsState()
 
         var sliderPosition: Float by remember(value) { mutableStateOf(value) }
 

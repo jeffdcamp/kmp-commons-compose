@@ -9,12 +9,12 @@ import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.MenuAnchorType
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import org.dbtools.kmp.commons.compose.component.DayNightTextField
@@ -30,8 +30,8 @@ fun <T> DropdownMenuBoxField(
     supportingText: String? = null,
     errorTextFlow: StateFlow<String?> = MutableStateFlow(null),
 ) {
-    val selectedOption by selectedOptionFlow.collectAsStateWithLifecycle()
-    val errorText by errorTextFlow.collectAsStateWithLifecycle()
+    val selectedOption by selectedOptionFlow.collectAsState()
+    val errorText by errorTextFlow.collectAsState()
 
     val supportText = when {
         !errorText.isNullOrBlank() -> errorText

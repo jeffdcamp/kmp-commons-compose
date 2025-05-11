@@ -1,16 +1,15 @@
 @file:OptIn(ExperimentalKotlinGradlePluginApi::class)
+import com.android.build.api.dsl.androidLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
 plugins {
     alias(libs.plugins.kotlin.multiplatform)
-//    alias(libs.plugins.kotlin.atomicfu)
     alias(libs.plugins.kotlin.serialization)
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.compose)
     alias(libs.plugins.compose.compiler)
-
-    alias(libs.plugins.kover)
+//    alias(libs.plugins.kover)
     alias(libs.plugins.download)
     id("maven-publish")
     signing
@@ -28,11 +27,18 @@ kotlin {
         )
     }
 
-    androidTarget {
-        compilerOptions {
-            jvmTarget.set(JvmTarget.JVM_17)
+    androidLibrary {
+        namespace = "org.dbtools.kmp.commons.compose"
+        compileSdk = libs.versions.android.compileSdk.get().toInt()
+        minSdk = libs.versions.android.minSdk.get().toInt()
+
+        compilations.configureEach {
+            compilerOptions.configure {
+                jvmTarget.set(
+                    JvmTarget.JVM_17
+                )
+            }
         }
-        publishLibraryVariants("release")
     }
 
     jvm {
@@ -105,7 +111,9 @@ kotlin {
 //                implementation(compose.preview)
 //                implementation(compose.components.uiToolingPreview)
 
+                implementation(libs.jetbrains.savedstate)
                 implementation(libs.jetbrains.lifecycle.viewmodel)
+                implementation(libs.jetbrains.material.icons)
                 implementation(libs.jetbrains.navigation.compose)
 
 
@@ -133,35 +141,20 @@ kotlin {
     }
 }
 
-android {
-    namespace = "org.dbtools.kmp.commons.compose"
-    compileSdk = libs.versions.android.compileSdk.get().toInt()
-    defaultConfig {
-        minSdk = libs.versions.android.minSdk.get().toInt()
-    }
-
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_17
-        targetCompatibility = JavaVersion.VERSION_17
-    }
-}
-
 // ./gradlew koverHtmlReport
 // ./gradlew koverVerify
-kover {
-    reports {
-        verify {
-            rule {
-                minBound(0)
-            }
-        }
-    }
-}
+//kover {
+//    reports {
+//        verify {
+//            rule {
+//                minBound(0)
+//            }
+//        }
+//    }
+//}
 
-// ./gradlew clean build assembleRelease publishToMavenLocal
-// ./gradlew clean build assembleRelease publishMavenPublicationToMavenLocal publishAndroidReleasePublicationToMavenLocal
-// ./gradlew clean build assembleRelease publishMavenPublicationToMavenCentralRepository publishReleasePublicationToMavenCentralRepository
-// ./gradlew clean build assembleRelease publishAllPublicationsToMavenCentralRepository
+// ./gradlew clean build detekt publishToMavenLocal
+// ./gradlew clean build detekt publishAllPublicationsToMavenCentralRepository
 fun MavenPublication.mavenCentralPom() {
     pom {
         name.set("Kmp Commons Compose")
@@ -262,22 +255,32 @@ tasks {
         dependsOn(withType<Sign>())
     }
 
-    named("compileTestKotlinIosArm64") {
-        dependsOn(named("signIosArm64Publication"))
+    if (org.gradle.internal.os.OperatingSystem.current().isMacOsX) {
+        named("compileTestKotlinIosArm64") {
+            dependsOn(named("signIosArm64Publication"))
+        }
+        named("compileTestKotlinIosSimulatorArm64") {
+            dependsOn(named("signIosSimulatorArm64Publication"))
+        }
+        named("compileTestKotlinIosX64") {
+            dependsOn(named("signIosX64Publication"))
+        }
+        named("compileTestKotlinMacosArm64") {
+            dependsOn(named("signMacosArm64Publication"))
+        }
+        named("compileTestKotlinMacosX64") {
+            dependsOn(named("signMacosX64Publication"))
+        }
+
+        // Mac can also do Linux signing
+        named("compileTestKotlinLinuxX64") {
+            dependsOn(named("signLinuxX64Publication"))
+        }
     }
-    named("compileTestKotlinIosSimulatorArm64") {
-        dependsOn(named("signIosSimulatorArm64Publication"))
-    }
-    named("compileTestKotlinIosX64") {
-        dependsOn(named("signIosX64Publication"))
-    }
-//    named("compileTestKotlinLinuxX64") {
-//        dependsOn(named("signLinuxX64Publication"))
-//    }
-//    named("compileTestKotlinMacosArm64") {
-//        dependsOn(named("signMacosArm64Publication"))
-//    }
-//    named("compileTestKotlinMacosX64") {
-//        dependsOn(named("signMacosX64Publication"))
+
+//    if (org.gradle.internal.os.OperatingSystem.current().isLinux) {
+//        named("compileTestKotlinLinuxX64") {
+//            dependsOn(named("signLinuxX64Publication"))
+//        }
 //    }
 }
