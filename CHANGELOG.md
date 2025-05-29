@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [1.0.0] - 2025-05-11
+
+### Changed
+- Updated compose plugin to 1.8.1 and applied fixes for changes to this dependency
+- Android Gradle Library Plugin to "com.android.kotlin.multiplatform.library"
+- Added support for only signing on platforms that can support certain build
+- Other version updates
+
 ## [0.1.0] - 2025-04-10
 
 ### Changed

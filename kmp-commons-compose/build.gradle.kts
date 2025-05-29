@@ -12,7 +12,7 @@ plugins {
 //    alias(libs.plugins.kover)
     alias(libs.plugins.download)
     id("maven-publish")
-    signing
+//    signing
 }
 
 kotlin {
@@ -96,28 +96,14 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.kotlin.coroutines.core)
-                implementation(libs.kotlin.serialization.json)
                 implementation(libs.kotlin.datetime)
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.logging)
-                implementation(libs.okio)
-                implementation(libs.androidx.datastore.preferences)
                 implementation(libs.kermit)
-
                 implementation(compose.runtime)
-//                implementation(compose.foundation)
                 implementation(compose.material3)
-//                implementation(compose.materialIconsExtended)
-//                implementation(compose.preview)
-//                implementation(compose.components.uiToolingPreview)
-
                 implementation(libs.jetbrains.savedstate)
                 implementation(libs.jetbrains.lifecycle.viewmodel)
                 implementation(libs.jetbrains.material.icons)
                 implementation(libs.jetbrains.navigation.compose)
-
-
-//                implementation(libs.touchlab.skie.annotations)
             }
         }
         val commonTest by getting {
@@ -125,17 +111,6 @@ kotlin {
                 implementation(libs.kotlin.test)
                 implementation(libs.kotlin.coroutines.test)
                 implementation(libs.assertK)
-
-                implementation(libs.kotlin.coroutines.test)
-                implementation(libs.ktor.client.mock)
-                implementation(libs.ktor.client.cio)
-                implementation(libs.ktor.client.core)
-                implementation(libs.ktor.client.content.negotiation)
-                implementation(libs.ktor.client.logging)
-                implementation(libs.ktor.client.serialization)
-                implementation(libs.ktor.client.resources)
-
-                implementation(libs.okio)
             }
         }
     }
@@ -237,50 +212,50 @@ publishing {
     }
 }
 
-signing {
-    setRequired {
-        findProperty("signing.keyId") != null
-    }
-
-    publishing.publications.all {
-        sign(this)
-    }
-}
-
-// TODO: remove after following issues are fixed
-// https://github.com/gradle/gradle/issues/26091
-// https://youtrack.jetbrains.com/issue/KT-46466
-tasks {
-    withType<PublishToMavenRepository> {
-        dependsOn(withType<Sign>())
-    }
-
-    if (org.gradle.internal.os.OperatingSystem.current().isMacOsX) {
-        named("compileTestKotlinIosArm64") {
-            dependsOn(named("signIosArm64Publication"))
-        }
-        named("compileTestKotlinIosSimulatorArm64") {
-            dependsOn(named("signIosSimulatorArm64Publication"))
-        }
-        named("compileTestKotlinIosX64") {
-            dependsOn(named("signIosX64Publication"))
-        }
-        named("compileTestKotlinMacosArm64") {
-            dependsOn(named("signMacosArm64Publication"))
-        }
-        named("compileTestKotlinMacosX64") {
-            dependsOn(named("signMacosX64Publication"))
-        }
-
-        // Mac can also do Linux signing
-        named("compileTestKotlinLinuxX64") {
-            dependsOn(named("signLinuxX64Publication"))
-        }
-    }
-
-//    if (org.gradle.internal.os.OperatingSystem.current().isLinux) {
+//signing {
+//    setRequired {
+//        findProperty("signing.keyId") != null
+//    }
+//
+//    publishing.publications.all {
+//        sign(this)
+//    }
+//}
+//
+//// TODO: remove after following issues are fixed
+//// https://github.com/gradle/gradle/issues/26091
+//// https://youtrack.jetbrains.com/issue/KT-46466
+//tasks {
+//    withType<PublishToMavenRepository> {
+//        dependsOn(withType<Sign>())
+//    }
+//
+//    if (org.gradle.internal.os.OperatingSystem.current().isMacOsX) {
+//        named("compileTestKotlinIosArm64") {
+//            dependsOn(named("signIosArm64Publication"))
+//        }
+//        named("compileTestKotlinIosSimulatorArm64") {
+//            dependsOn(named("signIosSimulatorArm64Publication"))
+//        }
+//        named("compileTestKotlinIosX64") {
+//            dependsOn(named("signIosX64Publication"))
+//        }
+//        named("compileTestKotlinMacosArm64") {
+//            dependsOn(named("signMacosArm64Publication"))
+//        }
+//        named("compileTestKotlinMacosX64") {
+//            dependsOn(named("signMacosX64Publication"))
+//        }
+//
+//        // Mac can also do Linux signing
 //        named("compileTestKotlinLinuxX64") {
 //            dependsOn(named("signLinuxX64Publication"))
 //        }
 //    }
-}
+//
+////    if (org.gradle.internal.os.OperatingSystem.current().isLinux) {
+////        named("compileTestKotlinLinuxX64") {
+////            dependsOn(named("signLinuxX64Publication"))
+////        }
+////    }
+//}
