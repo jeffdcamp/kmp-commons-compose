@@ -7,6 +7,21 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.0.0] - 2025-11-16
+
+### Added
+- Added support for Navigation3
+
+### Changed
+- Updated JetBrains compose to 1.10.0-beta01
+- Kotlin 2.2.21
+- Added support for and Kotlin DateTime API (kotlinx.datetime to kotlin.time)
+- Other version updates and build improvements
+- Changed publishing to use Vanniktech Plugin
+
+### Removed
+- Removed support for Navigation2
+
 ## [1.0.0] - 2025-05-11
 
 ### Changed

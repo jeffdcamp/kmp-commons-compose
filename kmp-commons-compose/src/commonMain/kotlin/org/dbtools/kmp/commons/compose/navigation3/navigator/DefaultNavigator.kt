@@ -1,0 +1,46 @@
+package org.dbtools.kmp.commons.compose.navigation3.navigator
+
+import androidx.compose.runtime.MutableState
+import androidx.navigation3.runtime.NavBackStack
+import androidx.navigation3.runtime.NavKey
+import org.dbtools.kmp.commons.compose.navigation3.navigate
+import org.dbtools.kmp.commons.compose.navigation3.pop
+
+class DefaultNavigator<T : NavKey>(
+    private val backStack: NavBackStack<T>
+) : Navigation3Navigator<T> {
+    override fun getBackStack(): List<T> {
+        return backStack.toList()
+    }
+
+    override fun navigate(key: T) {
+        backStack.navigate(key)
+    }
+
+    override fun navigate(keys: List<T>) {
+        backStack.navigate(keys)
+    }
+
+    override fun pop(): Boolean {
+        return pop(null)
+    }
+
+    override fun pop(key: T?): Boolean {
+        return backStack.pop(key) != null
+    }
+
+    override fun popAndNavigate(key: T): Boolean {
+        val keyRemoved = pop()
+        navigate(key)
+
+        return keyRemoved
+    }
+
+    override fun navigateTopLevel(key: T, reselected: Boolean) {
+        error("navigateTopLevel() navigation not implemented in DefaultNavigator (use TopLevelBackstackNavigator instead)")
+    }
+
+    override fun getSelectedTopLevelRoute(): MutableState<T>? {
+        error("getSelectedTopLevelRoute() not implemented in DefaultNavigator (use TopLevelBackstackNavigator instead)")
+    }
+}
