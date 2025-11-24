@@ -18,11 +18,9 @@ interface ViewModelNavigation3 {
     fun navigate(route: NavKey, popBackStack: Boolean = false)
     fun navigate(routes: List<NavKey>)
     fun navigate(route: NavKey)
-    fun navigateWithBackStack(block: (navigator: Navigation3Navigator<NavKey>) -> Unit)
+    fun navigateWithBackStack(block: (navigator: Navigation3Navigator) -> Unit)
     fun popBackStack(route: NavKey? = null)
-//    fun popBackStackWithResult(resultValues: List<PopResultKeyValue>, route: NavKey? = null, inclusive: Boolean = false)
-    fun popWithBackStack(block: (navigator: Navigation3Navigator<NavKey>) -> Boolean)
-
+    fun popWithBackStack(block: (navigator: Navigation3Navigator) -> Boolean)
     fun navigate(navigationAction: Navigation3Action)
     fun resetNavigate(navigationAction: Navigation3Action)
 }
@@ -43,19 +41,15 @@ class ViewModelNavigation3Impl : ViewModelNavigation3 {
         _navigatorFlow.compareAndSet(null, Navigation3Action.Navigate(route))
     }
 
-    override fun navigateWithBackStack(block: (navigator: Navigation3Navigator<NavKey>) -> Unit) {
-     _navigatorFlow.compareAndSet(null, Navigation3Action.NavigateWithBackstack(block))
+    override fun navigateWithBackStack(block: (navigator: Navigation3Navigator) -> Unit) {
+        _navigatorFlow.compareAndSet(null, Navigation3Action.NavigateWithBackstack(block))
     }
 
     override fun popBackStack(route: NavKey?) {
         _navigatorFlow.compareAndSet(null, Navigation3Action.Pop(route))
     }
 
-//    override fun popBackStackWithResult(resultValues: List<PopResultKeyValue>, route: NavKey?, inclusive: Boolean) {
-//        _navigatorFlow.compareAndSet(null, Navigation3Action.PopWithResult(resultValues, route, inclusive))
-//    }
-
-    override fun popWithBackStack(block: (navigator: Navigation3Navigator<NavKey>) -> Boolean) {
+    override fun popWithBackStack(block: (navigator: Navigation3Navigator) -> Boolean) {
         _navigatorFlow.compareAndSet(null, Navigation3Action.PopWithBackstack(block))
     }
 
@@ -71,7 +65,7 @@ class ViewModelNavigation3Impl : ViewModelNavigation3 {
 @Composable
 fun HandleNavigation3(
     viewModelNavigation: ViewModelNavigation3,
-    navigator: Navigation3Navigator<NavKey>
+    navigator: Navigation3Navigator
 ) {
     val navigationActionState = viewModelNavigation.navigationActionFlow.collectAsState()
     val navigationAction = navigationActionState.value

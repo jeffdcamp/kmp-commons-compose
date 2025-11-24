@@ -7,6 +7,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.0] - 2025-11-23
+
+### Changed
+- Updated JetBrains compose to 1.10.0-beta02
+- Improved support for Navigation3 Multiple Back Stacks
+- Changed navigation3 generic from <T : NavKey> to <NavKey>
+
 ## [2.0.0] - 2025-11-16
 
 ### Added

@@ -20,7 +20,6 @@ interface ViewModelNavigation3Bar<T : Enum<T>> {
 
     fun navigate(route: NavKey, popBackStack: Boolean = false)
     fun navigate(routes: List<NavKey>)
-//    fun navigate(intent: Intent, options: Bundle? = null)
     fun onNavBarItemSelected(selectedItem: T, route: NavKey? = null)
     fun navBarNavigation(route: NavKey, reselected: Boolean)
     fun resetNavigate(viewModelNavBarNavigator: ViewModelNavBarNavigator)
@@ -43,10 +42,6 @@ class ViewModelNavigation3BarImpl<T : Enum<T>>(
     override fun navigate(routes: List<NavKey>) {
         _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavigateMultiple(routes))
     }
-
-//    override fun navigate(intent: Intent, options: Bundle?) {
-//        _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavigateIntent(intent, options))
-//    }
 
     override fun navBarNavigation(route: NavKey, reselected: Boolean) {
         _navigatorFlow.compareAndSet(null, ViewModelNavBarNavigator.NavBarNavigate(route, reselected))
@@ -72,10 +67,10 @@ class ViewModelNavigation3BarImpl<T : Enum<T>>(
 }
 
 sealed class ViewModelNavBarNavigator {
-    abstract fun <T : Enum<T>> navigate(navigator: Navigation3Navigator<NavKey>, viewModelNav: ViewModelNavigation3Bar<T>): Boolean
+    abstract fun <T : Enum<T>> navigate(navigator: Navigation3Navigator, viewModelNav: ViewModelNavigation3Bar<T>): Boolean
 
     class NavBarNavigate(private val route: NavKey, private val reselected: Boolean) : ViewModelNavBarNavigator() {
-        override fun <T : Enum<T>> navigate(navigator: Navigation3Navigator<NavKey>, viewModelNav: ViewModelNavigation3Bar<T>): Boolean {
+        override fun <T : Enum<T>> navigate(navigator: Navigation3Navigator, viewModelNav: ViewModelNavigation3Bar<T>): Boolean {
             navigator.navigateTopLevel(route, reselected)
 
             viewModelNav.resetNavigate(this)
@@ -84,7 +79,7 @@ sealed class ViewModelNavBarNavigator {
     }
 
     class Navigate(private val route: NavKey) : ViewModelNavBarNavigator() {
-        override fun <T : Enum<T>> navigate(navigator: Navigation3Navigator<NavKey>, viewModelNav: ViewModelNavigation3Bar<T>): Boolean {
+        override fun <T : Enum<T>> navigate(navigator: Navigation3Navigator, viewModelNav: ViewModelNavigation3Bar<T>): Boolean {
             navigator.navigate(route)
 
             viewModelNav.resetNavigate(this)
@@ -93,35 +88,21 @@ sealed class ViewModelNavBarNavigator {
     }
 
     class NavigateMultiple(private val routes: List<NavKey>) : ViewModelNavBarNavigator() {
-        override fun <T : Enum<T>> navigate(navigator: Navigation3Navigator<NavKey>, viewModelNav: ViewModelNavigation3Bar<T>): Boolean {
+        override fun <T : Enum<T>> navigate(navigator: Navigation3Navigator, viewModelNav: ViewModelNavigation3Bar<T>): Boolean {
             navigator.navigate(routes)
             viewModelNav.resetNavigate(this)
             return false
         }
     }
 
-//    class NavigateIntent(val context: Context, val intent: Intent, val options: Bundle? = null) : ViewModelNavBarNavigator() {
-//        override fun <T : Enum<T>> navigate(context: Context, navController: NavController, viewModelNav: ViewModelNavigation3Bar<T>): Boolean {
-//            try {
-//                context.startActivity(intent, options)
-//            } catch (ignore: Exception) {
-//                Logger.e(ignore) { "Failed to startActivity for intent (${intent.data})" }
-//            }
-//            viewModelNav.resetNavigate(this)
-//            return false
-//        }
-//    }
-
     class PopAndNavigate(private val route: NavKey) : ViewModelNavBarNavigator() {
-        override fun <T : Enum<T>> navigate(navigator: Navigation3Navigator<NavKey>, viewModelNav: ViewModelNavigation3Bar<T>): Boolean {
+        override fun <T : Enum<T>> navigate(navigator: Navigation3Navigator, viewModelNav: ViewModelNavigation3Bar<T>): Boolean {
             val stackPopped = navigator.popAndNavigate(route)
             viewModelNav.resetNavigate(this)
             return stackPopped
         }
     }
 }
-
-
 
 interface Navigation3BarConfig<T : Enum<T>> {
     fun getRouteByNavItem(navBarItem: T): NavKey?
@@ -136,7 +117,7 @@ class DefaultNavigation3BarConfig<T : Enum<T>>(
 @Composable
 fun <T : Enum<T>> HandleNav3BarNavigation(
     viewModelNavigationBar: ViewModelNavigation3Bar<T>,
-    navigator: Navigation3Navigator<NavKey>,
+    navigator: Navigation3Navigator,
 ) {
     val navBarNavigator by viewModelNavigationBar.navBarNavigatorFlow.collectAsState()
 
