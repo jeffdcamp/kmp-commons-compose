@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.2] - 2025-11-24
+
+### Changed
+- Added decorators to NavigationState.toEntries()
+
 ## [2.1.1] - 2025-11-24
 
 ### Changed
