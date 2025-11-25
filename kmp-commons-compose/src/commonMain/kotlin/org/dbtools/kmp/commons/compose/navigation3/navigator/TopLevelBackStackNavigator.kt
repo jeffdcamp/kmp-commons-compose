@@ -28,8 +28,13 @@ import org.dbtools.kmp.commons.compose.navigation3.pop
  *         entry<CRoute> { CScreen(navigator, hiltViewModel()) }
  *     }
  *
+ *     val decorators: List<NavEntryDecorator<NavKey>> = listOf(
+ *         rememberSaveableStateHolderNavEntryDecorator(),
+ *         rememberViewModelStoreNavEntryDecorator()
+ *     )
+ *
  *     NavDisplay(
- *         entries = navigationState.toEntries(entryProvider),
+ *         entries = navigationState.toEntries(entryProvider, decorators),
  *         onBack = { navigator.pop() }
  *     )
  * }
@@ -54,8 +59,13 @@ import org.dbtools.kmp.commons.compose.navigation3.pop
  *         entry<CRoute> { CScreen(navigator, hiltViewModel()) }
  *     }
  *
+ *     val decorators: List<NavEntryDecorator<NavKey>> = listOf(
+ *         rememberSaveableStateHolderNavEntryDecorator(),
+ *         rememberViewModelStoreNavEntryDecorator()
+ *     )
+ *
  *     NavDisplay(
- *         entries = navigationState.toEntries(entryProvider),
+ *         entries = navigationState.toEntries(entryProvider, decorators),
  *         onBack = { navigator.pop() }
  *     )
  * }
