@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.1.3] - 2025-11-26
+
+### Changed
+- Added getCurrentBackStack() to Navigation3Navigator
+
+### Changed
+- Changed ResultStore to be an object (remove requirement of Dagger)
+
 ## [2.1.2] - 2025-11-24
 
 ### Changed
