@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import kotlinx.coroutines.flow.map
 
-class ResultStore {
+object ResultStore {
     private val lock = reentrantLock()
     private val resultMap = mutableMapOf<ResultKey, Any>()
     private val resultCallbacks = mutableMapOf<ResultKey, MutableList<ResultStoreCallback>>()
