@@ -33,7 +33,7 @@ fun TextWithSubtitle(
             modifier = Modifier
                 .padding(start = 16.dp, top = if (labelVisible) 0.dp else 8.dp)
         )
-        if (labelVisible && label != null) {
+        if (labelVisible) {
             Text(
                 text = label,
                 style = MaterialTheme.typography.bodySmall,

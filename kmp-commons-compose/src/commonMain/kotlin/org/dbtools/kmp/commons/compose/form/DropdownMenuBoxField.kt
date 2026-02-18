@@ -33,12 +33,6 @@ fun <T> DropdownMenuBoxField(
     val selectedOption by selectedOptionFlow.collectAsState()
     val errorText by errorTextFlow.collectAsState()
 
-    val supportText = when {
-        !errorText.isNullOrBlank() -> errorText
-        !supportingText.isNullOrBlank() -> supportingText
-        else -> null
-    }
-
     DropdownMenuBoxField(
         options = options,
         selectedOption = selectedOption,
@@ -46,8 +40,8 @@ fun <T> DropdownMenuBoxField(
         optionToText = optionToText,
         modifier = modifier,
         label = label,
-        supportingText = supportText,
-        isError = !errorText.isNullOrBlank()
+        supportingText = supportingText,
+        errorText = errorText
     )
 }
 
@@ -61,8 +55,14 @@ fun <T> DropdownMenuBoxField(
     modifier: Modifier = Modifier,
     label: String? = null,
     supportingText: String? = null,
-    isError: Boolean = false
+    errorText: String? = null,
 ) {
+    val supportText = when {
+        !errorText.isNullOrBlank() -> errorText
+        !supportingText.isNullOrBlank() -> supportingText
+        else -> null
+    }
+
     var expanded by remember { mutableStateOf(false) }
 
     ExposedDropdownMenuBox(
@@ -76,7 +76,7 @@ fun <T> DropdownMenuBoxField(
             label = if (label != null) { { Text(text = label) } } else null,
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
             supportingText = supportingText?.let{ { Text(it) } },
-            isError = isError,
+            isError = !errorText.isNullOrBlank(),
             modifier = modifier
                 // As of Material3 1.0.0-beta03; The `menuAnchor` modifier must be passed to the text field for correctness.
                 // (https://android-review.googlesource.com/c/platform/frameworks/support/+/2200861)

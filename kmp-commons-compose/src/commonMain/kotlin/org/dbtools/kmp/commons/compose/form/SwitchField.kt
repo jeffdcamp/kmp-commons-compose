@@ -19,6 +19,21 @@ fun SwitchField(
 ) {
     val checked by checkedFlow.collectAsState()
 
+    SwitchField(
+        label = label,
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun SwitchField(
+    label: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+) {
     Box(modifier = modifier) {
         Text(
             text = label,

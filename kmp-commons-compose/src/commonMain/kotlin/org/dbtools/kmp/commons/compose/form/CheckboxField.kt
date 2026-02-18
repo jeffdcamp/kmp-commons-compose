@@ -22,6 +22,22 @@ fun CheckboxField(
 ) {
     val checked by checkedFlow.collectAsState()
 
+    CheckboxField(
+        label = label,
+        checked = checked,
+        onCheckedChange = onCheckedChange,
+        modifier = modifier
+    )
+}
+
+@Composable
+fun CheckboxField(
+    label: String,
+    checked: Boolean,
+    onCheckedChange: (Boolean) -> Unit,
+    modifier: Modifier = Modifier,
+) {
+
     Row(modifier = modifier) {
         Checkbox(
             checked = checked,
