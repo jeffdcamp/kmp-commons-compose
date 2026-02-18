@@ -16,6 +16,7 @@ android-compileSdk = "36"
 android-minSdk = "23"
 assertK = "0.28.1"
 
+dbtoolsKmpCommons = "1.5.0"
 detekt = "2.0.0-alpha.2"
 downloadPlugin = "5.6.0"
 kermit = "2.0.8"
@@ -36,6 +37,8 @@ vanniktechPublishing = { id = "com.vanniktech.maven.publish", version.ref = "van
 versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [libraries]
+dbtools-kmp-commons = { group = "org.dbtools.kmp", name = "kmp-commons", version.ref = "dbtoolsKmpCommons" }
+
 jetbrains-compose-runtime = { group = "org.jetbrains.compose.runtime", name = "runtime", version.ref = "jetbrainsCompose" }
 jetbrains-compose-material3 = { group = "org.jetbrains.compose.material3", name = "material3", version.ref = "jetbrainsMaterial3" }
 jetbrains-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-compose", version.ref = "jetbrainsLifecycle" }
