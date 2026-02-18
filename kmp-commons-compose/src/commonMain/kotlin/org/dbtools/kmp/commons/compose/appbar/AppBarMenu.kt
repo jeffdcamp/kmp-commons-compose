@@ -183,16 +183,16 @@ sealed interface AppBarMenuItem {
         override val leadingIcon: ImageVector? = null,
         override val trailingIcon: ImageVector? = null,
         override val action: () -> Unit
-    ) : AppBarMenuItem, org.dbtools.kmp.commons.compose.menu.OverflowMenuItem.MenuItem(text, leadingIcon, trailingIcon, action)
+    ) : AppBarMenuItem, OverflowMenuItem.MenuItem(text, leadingIcon, trailingIcon, action)
 
     class OverflowMenuItemCustom(
         override val text: @Composable () -> String,
         override val leadingContent: (@Composable () -> Unit)? = null,
         override val trailingContent: (@Composable () -> Unit)? = null,
         override val action: () -> Unit
-    ) : AppBarMenuItem, org.dbtools.kmp.commons.compose.menu.OverflowMenuItem.MenuItemCustom(text, leadingContent, trailingContent, action)
+    ) : AppBarMenuItem, OverflowMenuItem.MenuItemCustom(text, leadingContent, trailingContent, action)
 
-    object OverflowDivider : AppBarMenuItem, org.dbtools.kmp.commons.compose.menu.OverflowMenuItem.Divider()
+    object OverflowDivider : AppBarMenuItem, OverflowMenuItem.Divider()
 
     fun isOverFlowItem(): Boolean = this is OverflowMenuItem || this is OverflowDivider
 }
