@@ -7,9 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
-## [2.1.3] - 2025-11-26
+## [2.2.0] - 2026-02-17
+
+### Added
+- Added deep link routing infrastructure for Navigation3
 
 ### Changed
+- Refactored form fields to include stateless overloads
+- Refactor Navigation3Navigator to support backstack change listeners
+- Updated dependencies: AGP 9.0.1, Kotlin 2.3.0, Detekt 2.0.0-alpha.2, Compose 1.10.0
+
+
+## [2.1.3] - 2025-11-26
+
+### Added
 - Added getCurrentBackStack() to Navigation3Navigator
 
 ### Changed
