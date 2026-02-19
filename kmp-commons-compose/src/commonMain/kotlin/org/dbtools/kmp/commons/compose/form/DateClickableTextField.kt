@@ -34,13 +34,13 @@ fun DateClickableTextField(
 @Composable
 fun DateClickableTextField(
     label: String,
-    date: LocalDate,
+    localDate: LocalDate?,
     localDateToText: (LocalDate?) -> String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
     errorText: String? = null
 ) {
-    val text = localDateToText(date)
+    val text = localDateToText(localDate)
 
     ClickableTextField(
         label = label,

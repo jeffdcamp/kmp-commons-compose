@@ -34,7 +34,7 @@ fun TimeClickableTextField(
 @Composable
 fun TimeClickableTextField(
     label: String,
-    localTime: LocalTime,
+    localTime: LocalTime?,
     localTimeToString: (LocalTime?) -> String,
     onClick: () -> Unit,
     modifier: Modifier = Modifier,
