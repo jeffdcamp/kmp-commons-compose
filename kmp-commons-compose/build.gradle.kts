@@ -86,6 +86,7 @@ kotlin {
         val commonMain by getting {
             dependencies {
                 implementation(libs.dbtools.kmp.commons)
+                implementation(libs.ktor.http)
                 implementation(libs.kotlin.atomicfu)
                 implementation(libs.kotlin.coroutines.core)
                 implementation(libs.kotlin.datetime)

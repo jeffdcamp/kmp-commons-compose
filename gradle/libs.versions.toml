@@ -4,8 +4,9 @@ kotlin = "2.3.0"
 kotlinxAtomicfu = "0.31.0"
 kotlinxCoroutines = "1.10.2"
 kotlinxDateTime = "0.7.1"
+ktor = "3.4.0"
 
-jetbrainsCompose = "1.10.0" # https://github.com/JetBrains/compose-jb
+jetbrainsCompose = "1.10.1" # https://github.com/JetBrains/compose-jb
 jetbrainsLifecycle = "2.9.6"
 jetbrainsLifecycleViewModelNavigation3 = "2.10.0-alpha07"
 jetbrainsMaterialIcons = "1.7.3"
@@ -16,11 +17,11 @@ android-compileSdk = "36"
 android-minSdk = "23"
 assertK = "0.28.1"
 
-dbtoolsKmpCommons = "1.5.0"
+dbtoolsKmpCommons = "1.5.1"
 detekt = "2.0.0-alpha.2"
-downloadPlugin = "5.6.0"
+downloadPlugin = "5.7.0"
 kermit = "2.0.8"
-kover = "0.9.4"
+kover = "0.9.7"
 vanniktechPlugin = "0.36.0"
 versionsPlugin = "0.53.0"
 
@@ -45,6 +46,8 @@ jetbrains-lifecycle-viewmodel = { group = "org.jetbrains.androidx.lifecycle", na
 jetbrains-lifecycle-viewmodel-navigation3 = { group = "org.jetbrains.androidx.lifecycle", name = "lifecycle-viewmodel-navigation3", version.ref = "jetbrainsLifecycleViewModelNavigation3" }
 jetbrains-savedstate = { group = "org.jetbrains.androidx.savedstate", name = "savedstate", version.ref = "jetbrainsSavedstate" }
 jetbrains-material-icons = { group = "org.jetbrains.compose.material", name = "material-icons-core", version.ref = "jetbrainsMaterialIcons" }
+
+ktor-http = { group = "io.ktor", name = "ktor-http", version.ref = "ktor" }
 
 kermit = { group = "co.touchlab", name = "kermit", version.ref = "kermit" }
 
