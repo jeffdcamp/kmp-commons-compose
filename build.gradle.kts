@@ -68,6 +68,7 @@ allprojects {
 
         // ignore ImageVector files
         exclude("**/ui/compose/icons/**")
+        exclude("**/icons/**")
 
         reports {
             html.required.set(true) // observe findings in your browser with structure and code snippets
