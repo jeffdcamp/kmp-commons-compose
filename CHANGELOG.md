@@ -7,6 +7,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+- Renamed `supportingText` to `text` in all dialog composables and UiState classes
+- Renamed `DropDownMenuDialog` to `DropdownMenuDialog` (file, functions, and `DropDownMenuDialogUiState` → `DropdownMenuDialogUiState`)
+- Alphabetized `when` branches in `LibraryDialogs`
+- Reordered `MultiSelectDialog` and `MultiSelectDialogUiState` parameters (title/text before allItems/selectedItems)
+- Updated `DropdownMenuDialog` to use `ExposedDropdownMenuAnchorType.PrimaryNotEditable`
+- Added `properties` to `InputDialogUiState`, `TwoInputDialogUiState`, `DropdownMenuDialogUiState`, `MenuOptionsDialogUiState`, `MultiSelectDialogUiState`, and `RadioDialogUiState`
+- Added `optionToSupportingText` parameter to `DropdownMenuDialog` and `DropdownMenuDialogUiState`
+
+### Fixed
+- Fixed `TwoInputDialog` UiState passing `minLengthSecond`/`maxLengthSecond` for the first input field instead of `minLengthFirst`/`maxLengthFirst`
+
 ## [2.2.0] - 2026-02-17
 
 ### Added

@@ -21,6 +21,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalDensity
+import androidx.compose.ui.platform.LocalWindowInfo
 import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
@@ -30,10 +32,10 @@ import org.dbtools.kmp.commons.compose.LibraryTheme
 
 @Composable
 fun <T> MultiSelectDialog(
+    title: String? = null,
+    text: String? = null,
     allItems: List<MultiSelectDataItem<T>>,
     selectedItems: List<T>,
-    title: String? = null,
-    supportingText: String? = null,
     confirmButtonText: @Composable () -> String? = { null },
     onConfirmButtonClick: ((List<T>) -> Unit)? = null,
     dismissButtonText: @Composable () -> String? = { null },
@@ -47,7 +49,7 @@ fun <T> MultiSelectDialog(
 
     Dialog(
         onDismissRequest = onDismissRequest,
-        properties = properties,
+        properties = properties
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
@@ -65,19 +67,20 @@ fun <T> MultiSelectDialog(
                     )
                 }
 
-                // Supporting Text
-                if (supportingText != null) {
+                // Dialog Text
+                if (text != null) {
                     Text(
-                        text = supportingText,
+                        text = text,
                         modifier = Modifier.padding(top = 16.dp),
                         style = MaterialTheme.typography.bodyMedium
                     )
                 }
 
                 // Items
+                val density = LocalDensity.current
+                val height = with(density) { LocalWindowInfo.current.containerSize.height.toDp() * 0.5f }
                 LazyColumn(
-                    modifier = Modifier
-                        .padding(top = 16.dp)
+                    modifier = Modifier.padding(top = 16.dp).heightIn(max = height)
                 ) {
                     items(allItems) {
                         val selected = savedSelectedItems.contains(it.item)
@@ -159,10 +162,11 @@ fun <T> MultiSelectDialog(
     dialogUiState: MultiSelectDialogUiState<T>
 ) {
     MultiSelectDialog(
+        title = dialogUiState.title?.invoke(),
+        text = dialogUiState.text?.invoke(),
         allItems = dialogUiState.allItems,
         selectedItems = dialogUiState.selectedItems,
-        title = dialogUiState.title?.invoke(),
-        supportingText = dialogUiState.supportingText?.invoke(),
+        properties = dialogUiState.properties,
         onConfirmButtonClick = { dialogUiState.onConfirm?.invoke(it) },
         onDismissRequest = { dialogUiState.onDismissRequest() },
         onDismissButtonClick = if (dialogUiState.onDismiss != null) {
@@ -174,15 +178,16 @@ fun <T> MultiSelectDialog(
 }
 
 data class MultiSelectDialogUiState<T>(
+    val title: @Composable (() -> String)? = null,
+    val text: @Composable (() -> String)? = null,
     val allItems: List<MultiSelectDataItem<T>>,
     val selectedItems: List<T>,
-    val title: @Composable (() -> String)? = null,
-    val supportingText: @Composable (() -> String)? = null,
+    val properties: DialogProperties = DialogProperties(),
     val confirmButtonText: @Composable () -> String? = { null },
     val dismissButtonText: @Composable () -> String? = { null },
     override val onConfirm: ((List<T>) -> Unit)? = null,
     override val onDismiss: (() -> Unit)? = null,
-    override val onDismissRequest: () -> Unit = {},
+    override val onDismissRequest: () -> Unit = {}
 ) : DialogUiState<List<T>>
 
 data class MultiSelectDataItem<T>(val item: T, val text: @Composable () -> String)
@@ -202,7 +207,7 @@ private fun PreviewMultiSelectDialog() {
     LibraryTheme {
         MultiSelectDialog(
             title = "Title",
-            supportingText = "Here is some supporting text",
+            text = "Here is some dialog text that gives more information about the options below.",
             allItems = items,
             selectedItems = selectedItems,
             onConfirmButtonClick = { },

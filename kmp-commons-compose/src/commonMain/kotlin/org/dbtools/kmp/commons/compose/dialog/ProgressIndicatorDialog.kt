@@ -25,7 +25,7 @@ import org.dbtools.kmp.commons.compose.LibraryTheme
 fun ProgressIndicatorDialog(
     onDismissRequest: () -> Unit = {},
     title: String? = null,
-    supportingText: String? = null,
+    text: String? = null,
     dismissButtonText: String? = null,
     onDismissButtonClick: (() -> Unit)? = null,
     shape: Shape = MaterialTheme.shapes.medium,
@@ -55,10 +55,10 @@ fun ProgressIndicatorDialog(
                     )
                 }
 
-                // Supporting Text
-                if (supportingText != null) {
+                // Dialog Text
+                if (text != null) {
                     Text(
-                        text = supportingText,
+                        text = text,
                         modifier = Modifier.padding(start = 16.dp, top = 16.dp),
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -101,7 +101,7 @@ fun ProgressIndicatorDialog(
 ) {
     ProgressIndicatorDialog(
         title = uiState.title?.invoke(),
-        supportingText = uiState.supportingText?.invoke(),
+        text = uiState.text?.invoke(),
         dismissButtonText = uiState.dismissButtonText(),
         onDismissRequest = uiState.onDismissRequest,
         onDismissButtonClick = uiState.onDismiss
@@ -110,7 +110,7 @@ fun ProgressIndicatorDialog(
 
 data class ProgressIndicatorDialogUiState(
     val title: @Composable (() -> String)? = null,
-    val supportingText: @Composable (() -> String)? = null,
+    val text: @Composable (() -> String)? = null,
     val dismissButtonText: @Composable () -> String? = { null },
     override val onDismiss: (() -> Unit)? = {},
     override val onDismissRequest: () -> Unit = {}
@@ -126,7 +126,7 @@ private fun Preview() {
     LibraryTheme {
         ProgressIndicatorDialog(
             title = "Title",
-            supportingText = "Here is some supporting text",
+            text = "Here is some text for the dialog",
             onDismissButtonClick = { }
         )
     }

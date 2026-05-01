@@ -43,7 +43,7 @@ import org.dbtools.kmp.commons.compose.component.DayNightTextField
 fun InputDialog(
     onDismissRequest: (() -> Unit),
     title: String? = null,
-    supportingText: String? = null,
+    text: String? = null,
     textFieldLabel: String? = null,
     initialTextFieldText: String? = null,
     confirmButtonText: String? = null,
@@ -73,12 +73,12 @@ fun InputDialog(
 
     Dialog(
         onDismissRequest = onDismissRequest,
-        properties = properties,
+        properties = properties
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
             color = backgroundColor,
-            tonalElevation = tonalElevation,
+            tonalElevation = tonalElevation
         ) {
             Column(
                 modifier = Modifier.padding(DialogDefaults.DialogPadding)
@@ -91,10 +91,10 @@ fun InputDialog(
                     )
                 }
 
-                // Supporting Text
-                if (supportingText != null) {
+                // Dialog Text
+                if (text != null) {
                     Text(
-                        text = supportingText,
+                        text = text,
                         modifier = Modifier.padding(top = 16.dp),
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -175,7 +175,7 @@ fun InputDialog(
     InputDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
         title = dialogUiState.title?.invoke(),
-        supportingText = dialogUiState.supportingText?.invoke(),
+        text = dialogUiState.text?.invoke(),
         textFieldLabel = dialogUiState.textFieldLabel(),
         initialTextFieldText = dialogUiState.initialTextFieldText(),
         confirmButtonText = dialogUiState.confirmButtonText(),
@@ -188,7 +188,7 @@ fun InputDialog(
         maxLines = dialogUiState.maxLines,
         minLength = dialogUiState.minLength,
         maxLength = dialogUiState.maxLength,
-        properties = DialogProperties(),
+        properties = dialogUiState.properties,
         backgroundColor = MaterialTheme.colorScheme.surface,
         textButtonColor = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
     )
@@ -196,7 +196,7 @@ fun InputDialog(
 
 data class InputDialogUiState(
     val title: @Composable (() -> String)? = null,
-    val supportingText: @Composable (() -> String)? = null,
+    val text: @Composable (() -> String)? = null,
     val textFieldLabel: @Composable () -> String? = { null },
     val initialTextFieldText: @Composable () -> String? = { null },
     val confirmButtonText: @Composable () -> String? = { null },
@@ -207,9 +207,10 @@ data class InputDialogUiState(
     val minLines: Int = 1,
     val minLength: Int = -1,
     val maxLength: Int = -1,
+    val properties: DialogProperties = DialogProperties(),
     override val onConfirm: (String) -> Unit = {},
     override val onDismiss: () -> Unit = {},
-    override val onDismissRequest: () -> Unit = {},
+    override val onDismissRequest: () -> Unit = {}
 ) : DialogUiState<String>
 
 @Suppress("LongMethod")
@@ -217,7 +218,7 @@ data class InputDialogUiState(
 fun TwoInputDialog(
     onDismissRequest: (() -> Unit) = {},
     title: String? = null,
-    supportingText: String? = null,
+    text: String? = null,
     textFieldLabelFirst: String? = null,
     initialTextFieldTextFirst: String? = null,
     textFieldLabelSecond: String? = null,
@@ -254,7 +255,7 @@ fun TwoInputDialog(
 
     Dialog(
         onDismissRequest = onDismissRequest,
-        properties = properties,
+        properties = properties
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
@@ -272,10 +273,10 @@ fun TwoInputDialog(
                     )
                 }
 
-                // Supporting Text
-                if (supportingText != null) {
+                // Dialog Text
+                if (text != null) {
                     Text(
-                        text = supportingText,
+                        text = text,
                         modifier = Modifier.padding(top = 16.dp),
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -389,7 +390,7 @@ fun TwoInputDialog(
     TwoInputDialog(
         onDismissRequest = { dialogUiState.onDismissRequest() },
         title = dialogUiState.title?.invoke(),
-        supportingText = dialogUiState.supportingText?.invoke(),
+        text = dialogUiState.text?.invoke(),
         textFieldLabelFirst = dialogUiState.textFieldLabelFirst(),
         initialTextFieldTextFirst = dialogUiState.initialTextFieldTextFirst(),
         textFieldLabelSecond = dialogUiState.textFieldLabelSecond(),
@@ -400,9 +401,11 @@ fun TwoInputDialog(
         onDismissButtonClick = { dialogUiState.onDismiss() },
         keyboardOptions = dialogUiState.keyboardOptions ?: KeyboardOptions.Default,
         singleLine = dialogUiState.singleLine,
-        minLengthFirst = dialogUiState.minLengthSecond,
-        maxLengthFirst = dialogUiState.maxLengthSecond,
-        properties = DialogProperties(),
+        minLengthFirst = dialogUiState.minLengthFirst,
+        maxLengthFirst = dialogUiState.maxLengthFirst,
+        minLengthSecond = dialogUiState.minLengthSecond,
+        maxLengthSecond = dialogUiState.maxLengthSecond,
+        properties = dialogUiState.properties,
         backgroundColor = MaterialTheme.colorScheme.surface,
         textButtonColor = MaterialTheme.colorScheme.primary, // This is specifically for handling theming in this app. May not want in Commons.
     )
@@ -410,7 +413,7 @@ fun TwoInputDialog(
 
 data class TwoInputDialogUiState(
     val title: @Composable (() -> String)? = null,
-    val supportingText: @Composable (() -> String)? = null,
+    val text: @Composable (() -> String)? = null,
     val textFieldLabelFirst: @Composable () -> String? = { null },
     val initialTextFieldTextFirst: @Composable () -> String? = { null },
     val textFieldLabelSecond: @Composable () -> String? = { null },
@@ -423,9 +426,10 @@ data class TwoInputDialogUiState(
     val maxLengthFirst: Int = -1,
     val minLengthSecond: Int = -1,
     val maxLengthSecond: Int = -1,
+    val properties: DialogProperties = DialogProperties(),
     override val onConfirm: (Pair<String, String>) -> Unit = {},
     override val onDismiss: () -> Unit = {},
-    override val onDismissRequest: () -> Unit = {},
+    override val onDismissRequest: () -> Unit = {}
 ) : DialogUiState<Pair<String, String>>
 
 @Suppress("UnusedPrivateMember")
@@ -436,7 +440,7 @@ private fun PreviewInputDialog() {
         InputDialog(
             onDismissRequest = {},
             title = "Title",
-            supportingText = "Here is some supporting text",
+            text = "Here is some text for the dialog",
             initialTextFieldText = "Default Value",
             onConfirmButtonClick = { },
             onDismissButtonClick = { },
@@ -454,7 +458,7 @@ private fun PreviewTwoInputDialog() {
         TwoInputDialog(
             onDismissRequest = {},
             title = "Title",
-            supportingText = "Here is some supporting text",
+            text = "Here is some text for the dialog",
             initialTextFieldTextFirst = "First",
             initialTextFieldTextSecond = "Second",
             onConfirmButtonClick = { },

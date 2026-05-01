@@ -26,7 +26,7 @@ import org.dbtools.kmp.commons.compose.LibraryTheme
 fun MenuOptionsDialog(
     onDismissRequest: (() -> Unit),
     title: String? = null,
-    supportingText: String? = null,
+    text: String? = null,
     options: List<MenuOptionsDialogItem>,
     properties: DialogProperties = DialogProperties(),
     backgroundColor: Color = MaterialTheme.colorScheme.surface,
@@ -59,11 +59,11 @@ fun MenuOptionsDialog(
 
                     }
 
-                    // Supporting Text
-                    if (supportingText != null) {
+                    // Dialog Text
+                    if (text != null) {
                         Text(
-                            text = supportingText,
-                            modifier = Modifier.padding(start = 16.dp, end = 16.dp),
+                            text = text,
+                            modifier = Modifier.padding(start = 16.dp, top = 16.dp, end = 16.dp),
                             style = MaterialTheme.typography.bodyMedium
                         )
                     }
@@ -79,8 +79,7 @@ fun MenuOptionsDialog(
                         headlineContent = { Text(menuOptionsDialogItem.text()) },
                         supportingContent = menuOptionsDialogItem.supportingContent,
                         trailingContent = menuOptionsDialogItem.trailingContent,
-                        modifier = Modifier
-                            .clickable { menuOptionsDialogItem.onClick() }
+                        modifier = Modifier.clickable { menuOptionsDialogItem.onClick() }
                     )
                 }
 
@@ -105,15 +104,17 @@ fun MenuOptionsDialog(
     MenuOptionsDialog(
         onDismissRequest = dialogUiState.onDismissRequest,
         title = dialogUiState.title?.invoke(),
-        supportingText = dialogUiState.supportingText?.invoke(),
-        options = dialogUiState.options
+        text = dialogUiState.text?.invoke(),
+        options = dialogUiState.options,
+        properties = dialogUiState.properties
     )
 }
 
 data class MenuOptionsDialogUiState(
     val title: @Composable (() -> String)? = null,
-    val supportingText: @Composable (() -> String)? = null,
+    val text: @Composable (() -> String)? = null,
     val options: List<MenuOptionsDialogItem>,
+    val properties: DialogProperties = DialogProperties(),
     override val onConfirm: ((String) -> Unit)? = null, // not used in OptionsDialog
     override val onDismiss: (() -> Unit)? = null,  // not used in OptionsDialog
     override val onDismissRequest: () -> Unit = {}
@@ -127,7 +128,7 @@ private fun Preview() {
         MenuOptionsDialog(
             onDismissRequest = {},
             title = "Options",
-            supportingText = "Here is some supporting text",
+            text = "Here is some dialog text that gives more information about the options below.",
             options = listOf(
                 MenuOptionsDialogItem({ "Option 1" }) {},
                 MenuOptionsDialogItem({ "Option 2" }) {},

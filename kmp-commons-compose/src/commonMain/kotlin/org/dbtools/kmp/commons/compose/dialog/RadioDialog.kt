@@ -34,7 +34,7 @@ fun <T> RadioDialog(
     onItemSelected: (T) -> Unit,
     onDismissRequest: (() -> Unit),
     title: String? = null,
-    supportingText: String? = null,
+    text: String? = null,
     onConfirmButtonClick: (() -> Unit)? = null,
     onDismissButtonClick: (() -> Unit)? = null,
     confirmButtonText: String? = null,
@@ -45,7 +45,7 @@ fun <T> RadioDialog(
 ) {
     Dialog(
         onDismissRequest = onDismissRequest,
-        properties = properties,
+        properties = properties
     ) {
         Surface(
             shape = MaterialTheme.shapes.extraLarge,
@@ -63,10 +63,10 @@ fun <T> RadioDialog(
                     )
                 }
 
-                // Supporting Text
-                if (supportingText != null) {
+                // Dialog Text
+                if (text != null) {
                     Text(
-                        text = supportingText,
+                        text = text,
                         modifier = Modifier.padding(top = 16.dp),
                         style = MaterialTheme.typography.bodyMedium
                     )
@@ -150,24 +150,26 @@ fun <T> RadioDialog(
         items = dialogUiState.items,
         onItemSelected = dialogUiState.onConfirm,
         title = dialogUiState.title?.invoke(),
-        supportingText = dialogUiState.supportingText?.invoke(),
+        text = dialogUiState.text?.invoke(),
         onConfirmButtonClick = null,
         onDismissRequest = dialogUiState.onDismissRequest,
         onDismissButtonClick = dialogUiState.onDismiss,
         confirmButtonText = dialogUiState.confirmButtonText(),
         dismissButtonText = dialogUiState.dismissButtonText(),
+        properties = dialogUiState.properties
     )
 }
 
 data class RadioDialogUiState<T>(
     val items: RadioDialogDataItems<T>?,
     val title: @Composable (() -> String)? = null,
-    val supportingText: @Composable (() -> String)? = null,
+    val text: @Composable (() -> String)? = null,
     val confirmButtonText: @Composable () -> String? = { null },
     val dismissButtonText: @Composable () -> String? = { null },
+    val properties: DialogProperties = DialogProperties(),
     override val onConfirm: (T) -> Unit = {},
     override val onDismiss: (() -> Unit)? = null,
-    override val onDismissRequest: () -> Unit = {},
+    override val onDismissRequest: () -> Unit = {}
 ) : DialogUiState<T>
 
 data class RadioDialogDataItems<T>(val items: List<RadioDialogDataItem<T>>, val selectedItem: T)
@@ -191,7 +193,7 @@ private fun Preview() {
         RadioDialog(
             onDismissRequest = {},
             title = "Title",
-            supportingText = "Here is some supporting text",
+            text = "Here is some dialog text explaining the radio options",
             items = radioItems,
             onItemSelected = { },
             onDismissButtonClick = { }
