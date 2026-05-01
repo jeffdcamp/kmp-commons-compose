@@ -7,6 +7,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.3.0] - 2026-05-01
+
+### Added
+- Added `inclusive` parameter to `popBackStack` and related navigation functions
+
 ### Changed
 - Renamed `supportingText` to `text` in all dialog composables and UiState classes
 - Renamed `DropDownMenuDialog` to `DropdownMenuDialog` (file, functions, and `DropDownMenuDialogUiState` → `DropdownMenuDialogUiState`)
@@ -15,6 +20,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated `DropdownMenuDialog` to use `ExposedDropdownMenuAnchorType.PrimaryNotEditable`
 - Added `properties` to `InputDialogUiState`, `TwoInputDialogUiState`, `DropdownMenuDialogUiState`, `MenuOptionsDialogUiState`, `MultiSelectDialogUiState`, and `RadioDialogUiState`
 - Added `optionToSupportingText` parameter to `DropdownMenuDialog` and `DropdownMenuDialogUiState`
+- Updated dependencies: AGP 9.2.0, Kotlin 2.3.21, Compose 1.11.0-beta03, Gradle 9.5.0
+- Updated Android compileSdk to 37
+- Replaced deprecated `LocalConfiguration` usage in `MultiSelectDialog`
+
+### Removed
+- Removed `ViewModelNavigation3Bar`
+- Removed `iosX64` target
 
 ### Fixed
 - Fixed `TwoInputDialog` UiState passing `minLengthSecond`/`maxLengthSecond` for the first input field instead of `minLengthFirst`/`maxLengthFirst`
