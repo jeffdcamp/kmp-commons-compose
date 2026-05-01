@@ -19,7 +19,7 @@ interface ViewModelNavigation3 {
     fun navigate(routes: List<NavKey>)
     fun navigate(route: NavKey)
     fun navigateWithBackStack(block: (navigator: Navigation3Navigator) -> Unit)
-    fun popBackStack(route: NavKey? = null)
+    fun popBackStack(route: NavKey? = null, inclusive: Boolean = false)
     fun popWithBackStack(block: (navigator: Navigation3Navigator) -> Boolean)
     fun navigate(navigationAction: Navigation3Action)
     fun resetNavigate(navigationAction: Navigation3Action)
@@ -45,8 +45,8 @@ class ViewModelNavigation3Impl : ViewModelNavigation3 {
         _navigatorFlow.compareAndSet(null, Navigation3Action.NavigateWithBackstack(block))
     }
 
-    override fun popBackStack(route: NavKey?) {
-        _navigatorFlow.compareAndSet(null, Navigation3Action.Pop(route))
+    override fun popBackStack(route: NavKey?, inclusive: Boolean) {
+        _navigatorFlow.compareAndSet(null, Navigation3Action.Pop(route, inclusive))
     }
 
     override fun popWithBackStack(block: (navigator: Navigation3Navigator) -> Boolean) {
