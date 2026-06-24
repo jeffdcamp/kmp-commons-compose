@@ -1,28 +1,28 @@
 [versions]
-agp = "9.2.0"
-kotlin = "2.3.21"
-kotlinxAtomicfu = "0.32.1"
-kotlinxCoroutines = "1.10.2"
-kotlinxDateTime = "0.7.1"
-ktor = "3.4.3"
+agp = "9.2.1"
+kotlin = "2.4.0"
+kotlinxAtomicfu = "0.33.0"
+kotlinxCoroutines = "1.11.0"
+kotlinxDateTime = "0.8.0"
+ktor = "3.5.0"
 
-jetbrainsCompose = "1.11.0-beta03" # https://github.com/JetBrains/compose-multiplatform/releases
-jetbrainsLifecycle = "2.11.0-alpha01"
-jetbrainsLifecycleViewModelNavigation3 = "2.11.0-alpha01"
+jetbrainsCompose = "1.11.1" # https://github.com/JetBrains/compose-multiplatform/releases
+jetbrainsLifecycle = "2.11.0-beta02"
+jetbrainsLifecycleViewModelNavigation3 = "2.11.0-beta02"
 jetbrainsMaterialIcons = "1.7.3"
-jetbrainsMaterial3 = "1.11.0-alpha07"
+jetbrainsMaterial3 = "1.12.0-alpha02"
 jetbrainsSavedstate = "1.4.0"
 
 android-compileSdk = "37"
 android-minSdk = "23"
 assertK = "0.28.1"
 
-dbtoolsKmpCommons = "1.6.0"
+dbtoolsKmpCommons = "1.7.0"
 detekt = "2.0.0-alpha.3"
 downloadPlugin = "5.7.0"
 kermit = "2.1.0"
 kover = "0.9.8"
-vanniktechPlugin = "0.36.0"
+vanniktechPlugin = "0.37.0"
 versionsPlugin = "0.54.0"
 
 [plugins]
