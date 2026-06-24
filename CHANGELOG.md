@@ -7,6 +7,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.4.0] - 2026-06-24
+
+### Changed
+- Updated dependencies: AGP 9.2.1, Kotlin 2.4.0, Compose 1.11.1, Material3 1.12.0-alpha02, Ktor 3.5.0, Gradle 9.6.0
+
+### Fixed
+- Fixed partial path matching in `RouteMatcher` so paths only match exactly or at proper path boundaries (`/` or `?`), preventing false positives on partial prefixes
+
 ## [2.3.0] - 2026-05-01
 
 ### Added
