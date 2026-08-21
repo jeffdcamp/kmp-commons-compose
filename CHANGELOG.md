@@ -7,6 +7,30 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.5.0] - 2026-08-21
+
+### Added
+- Added grouped/segmented settings API: `Setting.Group` with a `SegmentedScope` receiver providing `GroupedClickable`, `GroupedSwitch`, `GroupedSlider`, `GroupedClickableWithExpansion`, `GroupedSwitchWithExpansion`, `GroupedSwitchWithAction`, and `GroupedSwitchWithTwoChips`, using Material 3 Expressive `SegmentedListItem` shaping driven by a new `GroupPositionType` (`ONLY`/`FIRST`/`MIDDLE`/`LAST`)
+- Added `Setting.SwitchWithAction` — a clickable row with a divided trailing toggle for a separate action
+- Added `SettingsUiUtil` with `topAppBarColors()` and `scaffoldContainerColor()` helpers for Android System Settings-style contrast
+- Added `Icons.AutoMirrored.Rounded.ArrowForwardIos` icon
+- Added accessibility semantics across settings (heading roles, toggleable state, and slider `ProgressBarRangeInfo`/`setProgress`)
+- Enabled Apple (iOS/macOS) klib cross-compilation from non-Mac hosts for publishing from Linux CI (`kotlin.native.enableKlibsCrossCompilation`, `kotlin.native.ignoreDisabledTargets`); Apple frameworks are only declared on macOS hosts
+- Added `foojay-resolver-convention` plugin and `gradle/gradle-daemon-jvm.properties` for Gradle daemon JVM toolchain provisioning
+
+### Changed
+- Settings composables now expose `enabled` and `modifier` parameters and are split into value/flow overloads; `Slider` gained a customizable `valueText`
+- `Setting.Header` now applies heading semantics and accepts a `modifier`
+- Raised Android `minSdk` from 23 to 24
+- Renamed the `assertK` version and library alias to `assertk`
+- Switched the versions plugin id from `com.github.ben-manes.versions` to `io.github.ben-manes.versions`
+- Moved Detekt and Kover configuration from the root build into the module build, and enabled the Kover verify rule
+- Migrated the Android target from the `androidLibrary {}` DSL to `android {}` with a host-side unit test builder
+- Updated dependencies: AGP 9.3.1, Kotlin 2.4.10, Ktor 3.5.2, Lifecycle 2.11.0, Material3 1.12.0-alpha03, detekt 2.0.0-alpha.6, kover 0.9.9, versions plugin 0.61.0, Gradle 9.7.0
+
+### Fixed
+- Fixed `Float.round` to use `10^decimalPlaces` instead of `10 * decimalPlaces` for the rounding multiplier
+
 ## [2.4.0] - 2026-06-24
 
 ### Changed

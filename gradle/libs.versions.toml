@@ -1,29 +1,29 @@
 [versions]
-agp = "9.2.1"
-kotlin = "2.4.0"
+agp = "9.3.1"
+kotlin = "2.4.10"
 kotlinxAtomicfu = "0.33.0"
 kotlinxCoroutines = "1.11.0"
 kotlinxDateTime = "0.8.0"
-ktor = "3.5.0"
+ktor = "3.5.2"
 
 jetbrainsCompose = "1.11.1" # https://github.com/JetBrains/compose-multiplatform/releases
-jetbrainsLifecycle = "2.11.0-beta02"
-jetbrainsLifecycleViewModelNavigation3 = "2.11.0-beta02"
+jetbrainsLifecycle = "2.11.0"
+jetbrainsLifecycleViewModelNavigation3 = "2.11.0"
 jetbrainsMaterialIcons = "1.7.3"
-jetbrainsMaterial3 = "1.12.0-alpha02"
+jetbrainsMaterial3 = "1.12.0-alpha03"
 jetbrainsSavedstate = "1.4.0"
 
 android-compileSdk = "37"
-android-minSdk = "23"
-assertK = "0.28.1"
+android-minSdk = "24"
+assertk = "0.28.1"
 
 dbtoolsKmpCommons = "1.7.0"
-detekt = "2.0.0-alpha.3"
+detekt = "2.0.0-alpha.6"
 downloadPlugin = "5.7.0"
 kermit = "2.1.0"
-kover = "0.9.8"
+kover = "0.9.9"
 vanniktechPlugin = "0.37.0"
-versionsPlugin = "0.54.0"
+versionsPlugin = "0.61.0"
 
 [plugins]
 android-library = { id = "com.android.kotlin.multiplatform.library", version.ref = "agp" }
@@ -35,7 +35,7 @@ kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", versi
 kotlin-multiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 vanniktechPublishing = { id = "com.vanniktech.maven.publish", version.ref = "vanniktechPlugin" }
-versions = { id = "com.github.ben-manes.versions", version.ref = "versionsPlugin" }
+versions = { id = "io.github.ben-manes.versions", version.ref = "versionsPlugin" }
 
 [libraries]
 dbtools-kmp-commons = { group = "org.dbtools.kmp", name = "kmp-commons", version.ref = "dbtoolsKmpCommons" }
@@ -57,4 +57,4 @@ kotlin-coroutines-test = { group = "org.jetbrains.kotlinx", name = "kotlinx-coro
 kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlinxDateTime" }
 kotlin-test = { group = "org.jetbrains.kotlin", name = "kotlin-test", version.ref = "kotlin" }
 
-assertK = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertK" }
+assertk = { group = "com.willowtreeapps.assertk", name = "assertk", version.ref = "assertk" }
