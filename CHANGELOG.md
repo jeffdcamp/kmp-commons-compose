@@ -7,6 +7,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+## [2.6.0] - 2026-10-07
+
+### Changed
+- Raised Android `minSdk` from 24 to 26
+- Dependencies whose types appear in the public API (Compose runtime/ui/foundation/material3/material-icons, Navigation3 runtime, dbtools-kmp-commons, kotlinx-coroutines, kotlinx-datetime, kotlinx-serialization) are now exposed as `api` dependencies, so consumers no longer need to declare them to use this library's APIs (e.g. implementing `RouteMatcher.parse(Uri)`)
+- Fixed POM name/description (was `Kmp Commons`)
+- Updated dependencies: AGP 9.4.1, Kotlin 2.4.20, Compose 1.12.1, Ktor 3.6.0, dbtools-kmp-commons 1.9.0, kover 0.9.11, versions plugin 0.65.0, Gradle 9.8.0
+- Replaced internal uses of deprecated Compose APIs (`rememberPlainTooltipPositionProvider()`, `MenuAnchorType`, old `ListItemColors` property names)
+- Replaced deprecated `val ... by getting` source set syntax in the build script
+
+### Removed
+- Removed unused Kermit dependency
+- Removed stale KMMBridge `Package.swift`
+
 ## [2.5.0] - 2026-08-21
 
 ### Added

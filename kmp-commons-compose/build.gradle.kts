@@ -68,8 +68,7 @@ kotlin {
         appleTargets.forEach {
             it.binaries.framework {
                 baseName = "KMPCommonsCompose"
-                val version: String by project
-                binaryOption("bundleVersion", version)
+                binaryOption("bundleVersion", project.version.toString())
             }
         }
     }
@@ -98,26 +97,28 @@ kotlin {
 
 
     sourceSets {
-        val commonMain by getting {
-            dependencies {
-                implementation(libs.dbtools.kmp.commons)
-                implementation(libs.ktor.http)
-                implementation(libs.kotlin.atomicfu)
-                implementation(libs.kotlin.coroutines.core)
-                implementation(libs.kotlin.datetime)
-                implementation(libs.kermit)
-                implementation(libs.jetbrains.compose.runtime)
-                implementation(libs.jetbrains.compose.material3)
-                implementation(libs.jetbrains.lifecycle.viewmodel.navigation3)
-                implementation(libs.jetbrains.material.icons)
-            }
+        commonMain.dependencies {
+            // types from these libraries are exposed in this library's public API
+            api(libs.dbtools.kmp.commons)
+            api(libs.kotlin.coroutines.core)
+            api(libs.kotlin.datetime)
+            api(libs.kotlin.serialization.core)
+            api(libs.jetbrains.compose.runtime)
+            api(libs.jetbrains.compose.ui)
+            api(libs.jetbrains.compose.foundation)
+            api(libs.jetbrains.compose.material3)
+            api(libs.jetbrains.material.icons)
+            api(libs.androidx.navigation3.runtime)
+
+            implementation(libs.ktor.http)
+            implementation(libs.kotlin.atomicfu)
+            implementation(libs.jetbrains.savedstate.compose)
+            implementation(libs.jetbrains.lifecycle.viewmodel.navigation3)
         }
-        val commonTest by getting {
-            dependencies {
-                implementation(libs.kotlin.test)
-                implementation(libs.kotlin.coroutines.test)
-                implementation(libs.assertk)
-            }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.kotlin.coroutines.test)
+            implementation(libs.assertk)
         }
     }
 }
@@ -174,7 +175,7 @@ mavenPublishing {
     configure(
         com.vanniktech.maven.publish.KotlinMultiplatform(
             javadocJar = com.vanniktech.maven.publish.JavadocJar.Empty(),
-            sourcesJar = true,
+            sourcesJar = com.vanniktech.maven.publish.SourcesJar.Sources(),
             androidVariantsToPublish = listOf("release"),
         )
     )

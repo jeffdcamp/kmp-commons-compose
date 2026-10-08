@@ -29,13 +29,13 @@ fun ListItemDefaults.transparentContainerColors(
 
     return colors(
         containerColor = Color.Transparent,
-        headlineColor = headlineColor ?: defaultColors.headlineColor,
-        leadingIconColor = leadingIconColor ?: defaultColors.leadingIconColor,
-        overlineColor = overlineColor ?: defaultColors.overlineColor,
-        supportingColor = supportingColor ?: defaultColors.supportingTextColor,
-        trailingIconColor = trailingIconColor ?: defaultColors.trailingIconColor,
-        disabledHeadlineColor = disabledHeadlineColor ?: defaultColors.disabledHeadlineColor,
-        disabledLeadingIconColor = disabledLeadingIconColor ?: defaultColors.disabledLeadingIconColor,
-        disabledTrailingIconColor = disabledTrailingIconColor ?: defaultColors.disabledTrailingIconColor,
+        headlineColor = headlineColor ?: defaultColors.contentColor,
+        leadingIconColor = leadingIconColor ?: defaultColors.leadingContentColor,
+        overlineColor = overlineColor ?: defaultColors.overlineContentColor,
+        supportingColor = supportingColor ?: defaultColors.supportingContentColor,
+        trailingIconColor = trailingIconColor ?: defaultColors.trailingContentColor,
+        disabledHeadlineColor = disabledHeadlineColor ?: defaultColors.disabledContentColor,
+        disabledLeadingIconColor = disabledLeadingIconColor ?: defaultColors.disabledLeadingContentColor,
+        disabledTrailingIconColor = disabledTrailingIconColor ?: defaultColors.disabledTrailingContentColor,
     )
 }
